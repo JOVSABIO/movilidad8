@@ -36,7 +36,7 @@ with tab1:
 
     # Load dataset
     current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
-    data_path = current_dir / "incidentes_viales_limpio.csv"    
+    data_path = Path(__file__).parent / "incidentes_viales_limpio.csv"
     df = pd.read_csv(data_path, parse_dates=['FECHA_ACCIDENTE'])
     st.write("A continuación, se muestra una vista previa del conjunto de datos:")
     st.dataframe(df.head(10))
@@ -162,5 +162,6 @@ with tab5:
             El análisis de accidentes de tránsito en Medellín ha permitido identificar patrones y tendencias que pueden ser útiles para mejorar la seguridad vial en la ciudad. A través de la visualización de datos y el uso de herramientas de ciencia de datos, se han destacado áreas críticas y factores contribuyentes a los accidentes. Este proyecto sirve como base para futuras investigaciones y para la implementación de políticas de prevención más efectivas.
             """)
     st.write("\n")
+
 
 st.write("¡Gracias por explorar este análisis de accidentes de tránsito en Medellín!")
