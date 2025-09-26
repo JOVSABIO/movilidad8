@@ -37,7 +37,7 @@ with tab1:
     # Load dataset
     current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
     data_path = Path(__file__).parent / "incidentes_viales_limpio.csv"
-    df = pd.read_csv(data_path, parse_dates=['FECHA_ACCIDENTE'])
+    df = pd.read_csv(data_path, parse_dates=['FECHA_ACCIDENTE'], dayfirst=True)
     st.write("A continuación, se muestra una vista previa del conjunto de datos:")
     st.dataframe(df.head(10))
     st.write("\n")
@@ -164,4 +164,5 @@ with tab5:
 
 
 st.write("¡Gracias por explorar este análisis de accidentes de tránsito en Medellín!")
+
 
