@@ -57,10 +57,9 @@ with tab2:
     st.subheader("Diagrama Entidad-Relación")
     st.write("\n")
 
-    profile_pic = current_dir / "er_sql.png"
-
-    st.image(profile_pic, width=1800)
-    st.write("\n")
+    profile_pic = Path(__file__).parent / "er_sql.png"
+    st.image(str(profile_pic), width=1800)
+        st.write("\n")
 
 with tab3:
     st.write("\n") 
@@ -165,3 +164,4 @@ with tab5:
 
 
 st.write("¡Gracias por explorar este análisis de accidentes de tránsito en Medellín!")
+
