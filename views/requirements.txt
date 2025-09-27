@@ -1,9 +1,9 @@
-streamlit==1.28.0
-folium==0.14.0
-streamlit-folium==0.15.1
+streamlit
+folium
+streamlit-folium
 pandas
 matplotlib
 numpy
-gdown==4.7.1
-requests==2.31.0
-chardet==5.2.0
+gdown
+requests
+chardet
