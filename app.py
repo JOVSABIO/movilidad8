@@ -8,43 +8,37 @@ css_file = current_dir / "styles" / "main.css"
 profile_pic = current_dir / "assets" / "m8vilidad.png"
 
 # --- PAGE SETUP ---
-
 Settings_page = st.Page(
-    page = "views/indice.py",
+    page="views/indice.py",
     title="Indice",
     icon="📄",
     default=True,
 )
 
 Components = st.Page(
-    page = "views/componentes.py",
+    page="views/componentes.py",
     title="Componentes",
     icon="🛠️"
 )
 
 Integrador = st.Page(
-    page = "views/integrador.py",
+    page="views/integrador.py",
     title="Integrador",
     icon="🌎"
 )
 
 # --- NAVIGATION SETUP [WITH SECTIONS] ---
-
 pg = st.navigation(
     {
-        "Introducción":[Settings_page],
-        "Temas": [Components, Integrador]
-        
+        "Introducción": [Settings_page],
+        "Temas": [Components, Integrador],
     }
-)    
+)
 
 # --- SHARED ON ALL PAGES ---
-profile_pic = current_dir / "assets" / "m8vilidad.png"
-st.image(profile_pic, width=1800)
+st.image(str(profile_pic), width=1800)
 
 st.sidebar.text("Made with ❤️ by GRUPO 8")
 
-
 # --- RUN NAVIGATION ---
-
 pg.run()
