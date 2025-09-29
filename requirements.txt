@@ -1,4 +1,5 @@
 streamlit==1.33.0
+folium
 streamlit-folium
 pandas==2.2.2
 matplotlib==3.8.4
@@ -6,5 +7,6 @@ numpy==1.26.4
 gdown==4.7.3
 requests==2.31.0
 chardet==5.2.0
+
 
 
