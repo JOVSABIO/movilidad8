@@ -2,9 +2,14 @@ import streamlit as st
 import pandas as pd
 import requests
 from io import StringIO
-import folium
-from streamlit_folium import st_folium
-from folium.plugins import MarkerCluster, HeatMap
+
+try:
+    import folium
+    from streamlit_folium import st_folium
+    from folium.plugins import MarkerCluster, HeatMap
+    folium_installed = True
+except ImportError:
+    folium_installed = False
 
 def load_csv_from_drive(drive_link):
     # Carga un archivo CSV desde un enlace de Google Drive
@@ -244,6 +249,21 @@ def create_metric_card(icon, value, label, trend=None, card_type="default"):
 def main():
     # Función principal de la aplicación Streamlit (vista avanzada)
     st.markdown('<h1 class="main-header">🗺️ Mapa Interactivo de Accidentes de Tránsito en Medellín</h1>', unsafe_allow_html=True)
+
+    if not folium_installed:
+        st.error(
+            """**Error de dependencia: Faltan las librerías `folium` y `streamlit-folium`.**
+
+            Por favor, asegúrate de que tu archivo `requirements.txt` en la raíz de tu repositorio de GitHub contiene las siguientes líneas:
+
+            ```
+            folium
+            streamlit-folium
+            ```
+
+            Después de añadir estas líneas, reinicia la aplicación en Streamlit Cloud ('Manage app' -> 'Reboot')."""
+        )
+        return
     
     if 'filters_applied' not in st.session_state:
         st.session_state.filters_applied = False
