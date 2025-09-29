@@ -35,7 +35,6 @@ with tab1:
     st.write("\n")
 
     # Load dataset
-    current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
     data_path = Path(__file__).parent / "incidentes_viales_limpio.csv"
     df = pd.read_csv(data_path, parse_dates=['FECHA_ACCIDENTE'], dayfirst=True)
     st.write("A continuación, se muestra una vista previa del conjunto de datos:")
@@ -58,8 +57,9 @@ with tab2:
     st.write("\n")
 
     profile_pic = Path(__file__).parent / "er_sql.png"
+
     st.image(str(profile_pic), width=1800)
-        st.write("\n")
+    st.write("\n")
 
 with tab3:
     st.write("\n") 
@@ -72,60 +72,56 @@ with tab3:
     st.write("\n")
 
     code = '''# Tabla para los datos de tiempo
-
-        CREATE TABLE Tiempo (
-        tiempo_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        fecha_accidente DATE,
-        año INTEGER,
-        mes INTEGER
-    );
-    '''
+CREATE TABLE Tiempo (
+    tiempo_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fecha_accidente DATE,
+    año INTEGER,
+    mes INTEGER
+);
+'''
     st.code(code, language="sql")
     st.write("\n")
 
     code = '''# Tabla para los datos de ubicación
-
-        CREATE TABLE Ubicacion (
-        ubicacion_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        direccion VARCHAR,
-        comuna VARCHAR,
-        barrio VARCHAR,
-        x FLOAT,
-        y FLOAT,
-        diseno VARCHAR
-    );
-    '''
+CREATE TABLE Ubicacion (
+    ubicacion_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    direccion VARCHAR,
+    comuna VARCHAR,
+    barrio VARCHAR,
+    x FLOAT,
+    y FLOAT,
+    diseno VARCHAR
+);
+'''
 
     st.code(code, language="sql")
     st.write("\n")
 
     code = '''# Tabla para los datos de descripcion
-
-        CREATE TABLE Descripcion (
-        descripcion_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        cbml INTEGER,
-        clase_accidente VARCHAR,
-        nro_radicado INTEGER
-    );
-    '''
+CREATE TABLE Descripcion (
+    descripcion_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cbml INTEGER,
+    clase_accidente VARCHAR,
+    nro_radicado INTEGER
+);
+'''
     
     st.code(code, language="sql")
     st.write("\n")
 
-    code = '''# Tabla principal o maestra: inccidentes
-
-        CREATE TABLE Incidentes (
-        incidente_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        expediente VARCHAR,
-        gravedad_accidente VARCHAR,
-        tiempo_id INTEGER,
-        ubicacion_id INTEGER,
-        descripcion_id INTEGER,
-        FOREIGN KEY (tiempo_id) REFERENCES Tiempo(tiempo_id),
-        FOREIGN KEY (ubicacion_id) REFERENCES Ubicacion(ubicacion_id),
-        FOREIGN KEY (descripcion_id) REFERENCES Descripcion(descripcion_id)
-    );
-    '''
+    code = '''# Tabla principal o maestra: incidentes
+CREATE TABLE Incidentes (
+    incidente_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    expediente VARCHAR,
+    gravedad_accidente VARCHAR,
+    tiempo_id INTEGER,
+    ubicacion_id INTEGER,
+    descripcion_id INTEGER,
+    FOREIGN KEY (tiempo_id) REFERENCES Tiempo(tiempo_id),
+    FOREIGN KEY (ubicacion_id) REFERENCES Ubicacion(ubicacion_id),
+    FOREIGN KEY (descripcion_id) REFERENCES Descripcion(descripcion_id)
+);
+'''
 
     st.code(code, language="sql")
     st.write("\n")
@@ -162,7 +158,4 @@ with tab5:
             """)
     st.write("\n")
 
-
 st.write("¡Gracias por explorar este análisis de accidentes de tránsito en Medellín!")
-
-
