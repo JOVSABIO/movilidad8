@@ -130,8 +130,6 @@ def create_folium_map(data, map_type='markers', zoom_start=12, center=None):
 
     return m
 
-
-
 def create_advanced_map(complete_data):
     """
     Crea un mapa avanzado con información detallada en los popups de cada marcador.
@@ -522,4 +520,4 @@ def main():
             st.info("No hay datos filtrados para mostrar.")
 
 if __name__ == "__main__":
-    main()                        
+    main()
