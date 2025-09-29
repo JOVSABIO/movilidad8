@@ -94,7 +94,7 @@ def create_folium_map(data, map_type='markers', zoom_start=12, center=None):
         folium.Map: Mapa generado.
     """
     if center is None:
-        center = [6.2476, -75.5698]
+        center = [6.2442, -75.5812]  # Centro de Medellín por defecto
     m = folium.Map(
         location=center,
         zoom_start=zoom_start,
@@ -130,48 +130,7 @@ def create_folium_map(data, map_type='markers', zoom_start=12, center=None):
 
     return m
 
-def main():
-    # Función principal de la aplicación Streamlit
-    st.markdown('<h1 class="main-header">🗺️ Mapa de Accidentes de Tránsito en Medellín</h1>', unsafe_allow_html=True)
-    
-    # Inicializar session state
-    if 'data_loaded' not in st.session_state:
-        st.session_state.data_loaded = False
-    if 'filters_applied' not in st.session_state:
-        st.session_state.filters_applied = False
-    if 'map_type' not in st.session_state:
-        st.session_state.map_type = 'markers'
-    if 'zoom_level' not in st.session_state:
-        st.session_state.zoom_level = 12
-    
-    # Sidebar
-    with st.sidebar:
-        st.header("📁 Cargar Datos")
-        
-        drive_link = st.text_input(
-            "Enlace de Google Drive:",
-            value="https://drive.google.com/uc?id=1ABC123def456GHI789jkl"
-        )
-        
-        if st.button("📥 Cargar Datos", type="primary") and drive_link:
-            with st.spinner("Cargando datos..."):
-                df, status = load_csv_from_drive(drive_link)
-                if df is not None:
-                    st.session_state.df = df
-                    st.session_state.data_loaded = True
-                    st.session_state.filters_applied = False
-                    
-                    map_data, complete_data, skipped = process_data(df)
-                    st.session_state.map_data = map_data
-                    st.session_state.complete_data = complete_data
-                    st.session_state.skipped = skipped
-                    st.success("✅ Datos cargados")
-                else:
-                    st.error(f"❌ {status}")
-    
-    if not st.session_state.get('data_loaded', False):
-        st.info("Carga los datos desde Google Drive usando la barra lateral.")
-        return
+
 
 def create_advanced_map(complete_data):
     """
@@ -295,7 +254,7 @@ def main():
     
     if 'map_data' not in st.session_state or 'complete_data' not in st.session_state:
         with st.spinner("📂 Cargando datos iniciales..."):
-            default_drive_link = "https://drive.google.com/uc?id=1ABC123def456GHI789jkl"
+            default_drive_link = "https://drive.google.com/uc?id=1R5JxWJZK_OvFYdGmE2mG3wUhFRb7StdD&export=download"
             df, status = load_csv_from_drive(default_drive_link)
             if df is not None:
                 map_data, complete_data, skipped_records = process_data(df)
