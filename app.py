@@ -23,7 +23,7 @@ Components = st.Page(
 
 Integrador = st.Page(
     page="views/integrador.py",
-    title="Integrador",
+    title="Mapa Interactivo",
     icon="🌎"
 )
 
@@ -42,3 +42,4 @@ st.sidebar.text("Made with ❤️ by GRUPO 8")
 
 # --- RUN NAVIGATION ---
 pg.run()
+
