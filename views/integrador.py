@@ -21,7 +21,7 @@ def load_csv_from_drive(drive_link):
         else:
             return None, "Formato de enlace no válido"
         
-        download_url = f'https://drive.google.com/uc?id=1R5JxWJZK_OvFYdGmE2mG3wUhFRb7StdD&export=download'
+        download_url = f'https://drive.google.com/uc?id=13f0cf70-OBPbZGlBxRsQGVXNzhbROrgy&export=download'
         response = requests.get(download_url)
         response.raise_for_status()
         
@@ -135,7 +135,7 @@ def create_folium_map(data, map_type='markers', zoom_start=12, center=None):
 
             folium.Marker(
                 [row['lat'], row['lon']],
-                popup=folium.Popup(popup_content, max_width=300),
+                popup=folium.Popup(popup_content, max_width=700),
                 tooltip=f"{row.get('clase', 'N/A')} - {row.get('gravedad', 'N/A')}",
                 icon=folium.Icon(color=color, icon='car', prefix='fa')
             ).add_to(marker_cluster)
@@ -210,7 +210,7 @@ def create_advanced_map(complete_data, center=None):
         
         folium.Marker(
             [row['lat'], row['lon']],
-            popup=folium.Popup(popup_content, max_width=300),
+            popup=folium.Popup(popup_content, max_width=700),
             tooltip=f"{row['clase']} - {row['gravedad']}",
             icon=folium.Icon(color=color, icon='car', prefix='fa')
         ).add_to(marker_cluster)
@@ -297,7 +297,7 @@ def main():
     
     if 'map_data' not in st.session_state or 'complete_data' not in st.session_state:
         with st.spinner("📂 Cargando datos iniciales..."):
-            default_drive_link = "https://drive.google.com/uc?id=1R5JxWJZK_OvFYdGmE2mG3wUhFRb7StdD&export=download"
+            default_drive_link = "https://drive.google.com/uc?id=13f0cf70-OBPbZGlBxRsQGVXNzhbROrgy&export=download"
             df, status = load_csv_from_drive(default_drive_link)
             if df is not None:
                 map_data, complete_data, skipped_records = process_data(df)
