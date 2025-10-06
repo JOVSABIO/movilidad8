@@ -167,7 +167,7 @@ class AccidentInsights:
             comuna_stats = comuna_stats.sort_values('total_accidentes', ascending=False)
             
             # Mostrar tabla
-            st.dataframe(comuna_stats.head(10), width='stretch')
+            st.dataframe(comuna_stats.head(10), use_container_width=True)
             
             # Gráfico de barras
             top_comunas = comuna_stats.head(10)
@@ -176,7 +176,7 @@ class AccidentInsights:
                             x=top_comunas.index,
                             y='total_accidentes',
                             title="Top 10 Comunas con Más Accidentes")
-                st.plotly_chart(fig, width='stretch')
+                st.plotly_chart(fig, use_container_width=True)
         except Exception as e:
             st.error(f"Error en análisis por comuna: {e}")
     
@@ -209,7 +209,7 @@ class AccidentInsights:
                          labels={'hora': 'Hora del Día', 'accidentes': 'Número de Accidentes'},
                          title="Distribución Horaria de Accidentes")
             fig.update_traces(line=dict(color='red', width=3))
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
             # Identificar horas pico - CON VALIDACIÓN
             if not hourly_counts.empty:
@@ -250,7 +250,7 @@ class AccidentInsights:
             fig = px.bar(weekly_df, x='dia', y='accidentes',
                         labels={'dia': 'Día de la Semana', 'accidentes': 'Número de Accidentes'},
                         title="Accidentes por Día de la Semana")
-            st.plotly_chart(fig, width='stretch')
+            st.plotly_chart(fig, use_container_width=True)
             
         except Exception as e:
             st.error(f"Error en análisis semanal: {e}")
@@ -280,7 +280,7 @@ class AccidentInsights:
                 if not tipo_df.empty:
                     fig_pie = px.pie(tipo_df, values='cantidad', names='tipo',
                                    title="Distribución por Tipo de Accidente")
-                    st.plotly_chart(fig_pie, width='stretch')
+                    st.plotly_chart(fig_pie, use_container_width=True)
             
             with col2:
                 # Gráfico de barras horizontal
@@ -289,7 +289,7 @@ class AccidentInsights:
                                    orientation='h',
                                    title="Tipos de Accidentes Más Frecuentes",
                                    labels={'tipo': 'Tipo de Accidente', 'cantidad': 'Cantidad'})
-                    st.plotly_chart(fig_bar, width='stretch')
+                    st.plotly_chart(fig_bar, use_container_width=True)
                     
         except Exception as e:
             st.error(f"Error en análisis de tipos: {e}")
@@ -315,7 +315,7 @@ class AccidentInsights:
                 fig = px.line(temporal_data, x='periodo', y='accidentes',
                              title="Evolución Mensual de Accidentes",
                              labels={'periodo': 'Periodo', 'accidentes': 'Número de Accidentes'})
-                st.plotly_chart(fig, width=True)
+                st.plotly_chart(fig, use_container_width=True)
             else:
                 st.warning("No hay datos para mostrar evolución temporal")
                 
@@ -344,7 +344,7 @@ class AccidentInsights:
             
             if not zone_risk.empty:
                 # Mostrar tabla
-                st.dataframe(zone_risk, width='stretch')
+                st.dataframe(zone_risk, use_container_width=True)
                 
                 # Mapa con marcadores de zonas de riesgo
                 medellin_center = [6.2442, -75.5812]
@@ -389,7 +389,7 @@ class AccidentInsights:
                                labels=dict(x="Tipo de Accidente", y="Hora del Día", color="Frecuencia"),
                                title="Frecuencia de Accidentes por Hora y Tipo",
                                aspect="auto")
-                st.plotly_chart(fig, width='stretch')
+                st.plotly_chart(fig, use_container_width=True)
             else:
                 st.warning("No hay datos para el heatmap de horarios críticos")
                 
