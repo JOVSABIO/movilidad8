@@ -142,9 +142,14 @@ with tab4:
     - **Pandas**: Para la manipulación y análisis de datos.
     - **Streamlit**: Para desarrollar la aplicación web interactiva.
     - **Folium**: Para la visualización de datos geoespaciales en mapas.
-    - **requests**: Para realizar solicitudes HTTP.
-    - **io**: Para manejar flujos de datos.
-    - **sqlite3**: Para la gestión de bases de datos SQLite.
+    - **Numpy**: Para operaciones numéricas y manejo de arrays.
+    - **Plotly**: Para la creación de gráficos interactivos.
+    - **Matplotlib**: Para la generación de gráficos estáticos.
+    - **Seaborn**: Para la visualización estadística de datos.
+    - **Sclearn-pandas**: Para integrar Scikit-learn con Pandas.
+    - **Requests**: Para realizar solicitudes HTTP.
+    - **Io**: Para manejar flujos de datos.
+    - **Sqlite3**: Para la gestión de bases de datos SQLite.
              """)
     st.write("\n")
 
@@ -159,3 +164,4 @@ with tab5:
     st.write("\n")
 
 st.write("¡Gracias por explorar este análisis de accidentes de tránsito en Medellín!")
+
