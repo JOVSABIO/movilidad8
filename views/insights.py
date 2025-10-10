@@ -211,19 +211,37 @@ class AccidentInsights:
             st.metric("Total Accidentes", f"{total_accidentes:,}")
         
         with col2:
-            gravedad_col = find_column(self.data, ['gravedad', 'GRAVEDAD', 'severidad'])
+            gravedad_col = find_column(self.data, ['gravedad', 'GRAVEDAD', 'GRAVEDAD_ACCIDENTE', 'severidad'])
             if gravedad_col and validate_data_not_empty(self.data, gravedad_col):
                 try:
-                    graves = self.data[gravedad_col].str.contains(
-                        'Grave|Fatal|grave|fatal', 
-                        case=False, 
-                        na=False
+                    # Calcular métricas separadas
+                    con_heridos = self.data[gravedad_col].str.contains(
+                        'Con heridos', case=False, na=False
                     ).sum()
-                    st.metric("Accidentes Graves", f"{graves:,}")
                     
-                    # Porcentaje
-                    porcentaje = (graves / len(self.data) * 100) if len(self.data) > 0 else 0
-                    st.caption(f"({porcentaje:.1f}% del total)")
+                    con_muertos = self.data[gravedad_col].str.contains(
+                        'Con muertos', case=False, na=False
+                    ).sum()
+                    
+                    graves_totales = con_heridos + con_muertos
+                    
+                    # Métrica principal
+                    st.metric("Accidentes Graves", f"{graves_totales:,}")
+                    
+                    # Submétricas visuales compactas
+                    porcentaje_total = (graves_totales / len(self.data) * 100) if len(self.data) > 0 else 0
+                    st.caption(f"({porcentaje_total:.1f}% del total)")
+                    
+                    # Mostrar desglose con iconos
+                    col2a, col2b = st.columns(2)
+                    with col2a:
+                        porcentaje_heridos = (con_heridos / len(self.data) * 100) if len(self.data) > 0 else 0
+                        st.caption(f"🚑 {con_heridos:,} ({porcentaje_heridos:.1f}%)")
+                    
+                    with col2b:
+                        porcentaje_muertos = (con_muertos / len(self.data) * 100) if len(self.data) > 0 else 0
+                        st.caption(f"⚰️ {con_muertos:,} ({porcentaje_muertos:.1f}%)")
+                    
                 except Exception as e:
                     logger.error(f"Error calculando accidentes graves: {e}")
                     st.metric("Accidentes Graves", "N/A")
@@ -905,18 +923,6 @@ def main():
     # Cargar datos desde session_state
     if 'complete_data' in st.session_state and not st.session_state.complete_data.empty:
         data = st.session_state.complete_data
-        
-        # Mostrar información básica del dataset
-        with st.sidebar:
-            st.header("📊 Información del Dataset")
-            st.metric("Total Registros", f"{len(data):,}")
-            st.metric("Total Columnas", len(data.columns))
-            
-            # Completitud
-            completeness = 1 - data.isnull().sum().sum() / (len(data) * len(data.columns))
-            st.metric("Completitud", f"{completeness:.1%}")
-            
-            st.markdown("---")
         
         # Inicializar clase de insights
         try:
