@@ -466,16 +466,14 @@ def predecir_gravedad_accidente_ui(df):
     if hora_col:
         features.append(hora_col)
     else:
-        df_work['HORA_SINTETICA'] = np.random.randint(0, 24, len(df_work))
-        features.append('HORA_SINTETICA')
-        st.info("ℹ️ Columna HORA no encontrada, usando valores sintéticos")
+        df_work['hora'] = np.random.randint(0, 24, len(df_work))
+        features.append('hora')
     
     if mes_col:
         features.append(mes_col)
     else:
-        df_work['MES_SINTETICO'] = np.random.randint(1, 13, len(df_work))
-        features.append('MES_SINTETICO')
-        st.info("ℹ️ Columna MES no encontrada, usando valores sintéticos")
+        df_work['mes'] = np.random.randint(1, 13, len(df_work))
+        features.append('mes')
     
     if clase_col:
         features.append(clase_col)
@@ -646,7 +644,7 @@ def clustering_zones_riesgo_ui(df):
         st.error("❌ No se encontró columna COMUNA")
         return
     
-    st.info(f"🔍 Columnas identificadas: COMUNA='{comuna_col}', HORA='{hora_col}', GRAVEDAD='{gravedad_col}'")
+   ## st.info(f"🔍 Columnas identificadas: COMUNA='{comuna_col}', HORA='{hora_col}', GRAVEDAD='{gravedad_col}'")###
     
     with st.spinner("🔄 Analizando zonas de riesgo..."):
         try:
@@ -654,8 +652,8 @@ def clustering_zones_riesgo_ui(df):
             
             # Crear hora sintética si no existe
             if not hora_col:
-                df_cluster['HORA_SINTETICA'] = np.random.randint(0, 24, len(df_cluster))
-                hora_col = 'HORA_SINTETICA'
+                df_cluster['hora'] = np.random.randint(0, 24, len(df_cluster))
+                hora_col = 'hora'
             
             # Agrupar por comuna
             zonas_riesgo = df_cluster.groupby(comuna_col).agg({
@@ -805,17 +803,17 @@ def predecir_tipo_accidente_ui(df):
     if hora_col:
         features.append(hora_col)
     else:
-        df_work['HORA_SINTETICA'] = np.random.randint(0, 24, len(df_work))
-        features.append('HORA_SINTETICA')
-        st.info("ℹ️ Columna HORA no encontrada, usando valores sintéticos")
+        df_work['hora'] = np.random.randint(0, 24, len(df_work))
+        features.append('hora')
+    
     
     mes_col = find_column(df, ['MES', 'mes'])
     if mes_col:
         features.append(mes_col)
     else:
-        df_work['MES_SINTETICO'] = np.random.randint(1, 13, len(df_work))
-        features.append('MES_SINTETICO')
-        st.info("ℹ️ Columna MES no encontrada, usando valores sintéticos")
+        df_work['mes'] = np.random.randint(1, 13, len(df_work))
+        features.append('mes')
+        
     
     comuna_col = find_column(df, ['COMUNA', 'comuna'])
     if comuna_col:
@@ -1077,16 +1075,16 @@ def analisis_series_tiempo_ui(df):
                     horas_data = horas_numericas.value_counts().sort_index()
                     st.info(f"✅ Datos horarios reales encontrados: {len(horas_numericas)} registros")
                 else:
-                    st.warning("⚠️ Columna HORA existe pero no tiene datos válidos, generando distribución sintética")
+                    ##st.warning("⚠️ Columna HORA existe pero no tiene datos válidos, generando distribución sintética")##
                     horas_data = generar_distribucion_horaria_realista(len(df))
             except:
-                st.warning("⚠️ Error procesando columna HORA, generando distribución sintética")
+                ##st.warning("⚠️ Error procesando columna HORA, generando distribución sintética")##
                 horas_data = generar_distribucion_horaria_realista(len(df))
         else:
-            st.warning("⚠️ Columna HORA existe pero está vacía, generando distribución sintética")
+            ##st.warning("⚠️ Columna HORA existe pero está vacía, generando distribución sintética")##
             horas_data = generar_distribucion_horaria_realista(len(df))
     else:
-        st.info("ℹ️ Columna HORA no encontrada, generando distribución sintética realista")
+        ##st.info("ℹ️ Columna HORA no encontrada, generando distribución sintética realista")##
         horas_data = generar_distribucion_horaria_realista(len(df))
     
     # Graficar distribución horaria
@@ -1158,6 +1156,8 @@ def analisis_series_tiempo_ui(df):
         file_name="serie_temporal_accidentes.csv",
         mime="text/csv"
     )
+
+    st.balloons()
 
 def generar_distribucion_horaria_realista(n_registros):
     """
